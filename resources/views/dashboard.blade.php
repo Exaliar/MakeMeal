@@ -13,47 +13,50 @@
     </form> --}}
 
     <ul>
-        @foreach ($categories as $category)
+        @foreach ($data as $category)
             <li>
-                {{ $category->name }}
+                {{ $category['name'] }}
 
-                @if ($category->has_child === true)
-                    <ul>
-                        @foreach ($category->childrens as $child)
-                            <li>{{ $child->name }}</li>
+                @isset($category['children'])
+                    <ul class="pl-10">
+                        @foreach ($category['children'] as $child)
+                            <li>
+                                {{ $child['name'] }}
+
+                                @isset($child['children'])
+                                    <ul class="pl-10">
+                                        @foreach ($child['children'] as $lastChild)
+                                            <li>
+                                                {{ $lastChild['name'] }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endisset
+                                <form class="pl-10" action="/category" method="POST">
+                                    @csrf
+                                    <input name="name" type="text">
+                                    <input name="category" type="hidden" value="{{ $child['id'] }}">
+                                    <button type="submit">Zapisz-2</button>
+                                </form>
+                            </li>
                         @endforeach
-                        @if ($loop->last)
-                            <form action="/ategory" method="POST">
-                                @csrf
-                                <input name="name" type="text">
-                                <input name="category" type="hidden" value="{{ $category->id }}">
-                                <button type="submit">Zapisz-2</button>
-                            </form>
-                        @endif
+
                     </ul>
-                @else
-                    {{-- {{ dd($category) }} --}}
-                    @if ($loop->last)
-                        <form action="/category" method="POST">
-                            @csrf
-                            <input name="name" type="text">
-                            <input name="category" type="hidden" value="{{ $category->id }}">
-                            <button type="submit">Zapisz-1</button>
-                        </form>
-                    @endif
-                @endif
+                @endisset
 
-            </li>
-
-            @if ($loop->last)
-                <form action="/category" method="POST">
+                <form class="pl-10" action="/category" method="POST">
                     @csrf
                     <input name="name" type="text">
-                    {{-- <input name="category" type="hidden" value="{{ $category->id }}"> --}}
-                    <button type="submit">Zapisz-0</button>
+                    <input name="category" type="hidden" value="{{ $category['id'] }}">
+                    <button type="submit">Zapisz-1</button>
                 </form>
-            @endif
+            </li>
         @endforeach
+        <form action="/category" method="POST">
+            @csrf
+            <input name="name" type="text">
+            <button type="submit">Zapisz-0</button>
+        </form>
     </ul>
 
     <div class="py-12">

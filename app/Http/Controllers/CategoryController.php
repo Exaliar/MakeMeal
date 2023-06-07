@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
@@ -15,31 +14,29 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::where('user_id', Auth::id())->get();
-        $first = $categories->where('category_id', '===', null);
+        $categories = Category::where('user_id', Auth::id())->get()->toArray();
 
-        // dd($categories);
-        $data = $this->categoryList($categories, $first);
+        $data = $this->categoryList($categories);
 
-        dd($data);
+        // dd($data);
         return view('/dashboard', compact('data'));
     }
 
-    private function categoryList(Collection $categories, Collection $parent)
+    private function categoryList(array $categories, int|null $parentId = null)
     {
-        $data = [];
+        $tree = [];
 
-        foreach ($parent as $child) {
+        foreach ($categories as $category) {
 
-            $data = $categories->where('category_id', '===', $child->id);
-
-            if ($child->has_child === false) {
-                return $data;
-            } else {
-                return $this->categoryList($categories, $data);
+            if ($category['category_id'] === $parentId) {
+                $children = $this->categoryList($categories, $category['id']);
+                if ($children) {
+                    $category['children'] = $children;
+                }
+                $tree[] = $category;
             }
         }
-        return $data;
+        return $tree;
     }
 
     /**
