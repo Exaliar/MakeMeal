@@ -23,8 +23,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/category', [CategoryController::class, 'index'])->middleware('auth');
-Route::post('/category', [CategoryController::class, 'store'])->middleware('auth');
+Route::get('/category', [CategoryController::class, 'index'])->middleware('auth')->name('category.index');
+Route::post('/category', [CategoryController::class, 'store'])->middleware('auth')->name('category.store');
+Route::patch('/category/{category}', [CategoryController::class, 'update'])->middleware('auth')->name('category.update');
+Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->middleware('auth')->name('category.destroy');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
