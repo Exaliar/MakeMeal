@@ -29,6 +29,15 @@
             </header>
         @endif
 
+        <!-- Main Controll -->
+        @if (isset($controllButtons))
+            <nav class="bg-white shadow dark:bg-gray-800">
+                <div class="mx-auto flex max-w-7xl gap-2 py-4 px-2 sm:px-6 lg:px-8">
+                    {{ $controllButtons }}
+                </div>
+            </nav>
+        @endif
+
         <!-- Page Content -->
         <main>
             {{ $slot }}

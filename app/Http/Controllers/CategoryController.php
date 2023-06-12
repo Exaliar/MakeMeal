@@ -5,18 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Traits\MainDashboard\AddCategory;
+use App\Traits\MainDashboard\EditCategory;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+    use EditCategory, AddCategory;
+
     public function index()
     {
         $categories = Category::where('user_id', Auth::id())->get()->toArray();
 
         $data = $this->categoryList($categories);
+        $edit = $this->canEditCategory();
+        $add = $this->canAddCategory();
+        // dd($edit, $add);
+
 
         // dd($data);
-        return view('/dashboard', compact('data'));
+        return view('/dashboard', compact(['data', 'edit', 'add']));
     }
 
     public function store(StoreCategoryRequest $request)
