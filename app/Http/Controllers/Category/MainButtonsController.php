@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Category;
 use App\Http\Controllers\Controller;
 use App\Traits\MainDashboard\AddCategory;
 use App\Traits\MainDashboard\EditCategory;
-use Illuminate\Http\Request;
 
 class MainButtonsController extends Controller
 {
@@ -14,7 +13,7 @@ class MainButtonsController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function editCategory(Request $request)
+    public function editCategory()
     {
         if ($this->canEditCategory()) {
             $this->unsetEditableCategory();

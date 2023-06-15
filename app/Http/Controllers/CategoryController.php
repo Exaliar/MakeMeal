@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCategoryRequest;
 use App\Traits\MainDashboard\AddCategory;
 use App\Traits\MainDashboard\EditCategory;
 use Illuminate\Support\Facades\Auth;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class CategoryController extends Controller
 {
@@ -20,10 +21,12 @@ class CategoryController extends Controller
         $data = $this->categoryList($categories);
         $edit = $this->canEditCategory();
         $add = $this->canAddCategory();
-        // dd($edit, $add);
 
-
+        // $en = new GoogleTranslate('pl');
+        // $test = $en->getResponse('Vegetable oil (enough to cover chicken), about 1 quart');
+        // dd($test);
         // dd($data);
+
         return view('/dashboard', compact(['data', 'edit', 'add']));
     }
 
@@ -31,9 +34,12 @@ class CategoryController extends Controller
     {
         // $validate = $request->validated();
         $category = new Category();
+        $en = new GoogleTranslate('en');
+        $name_en = $en->translate($request->name);
 
         $category->user_id = Auth::id();
         $category->name = $request->name;
+        $category->name_en = $name_en ?? null;
 
         if ($request->has('category')) {
 
@@ -53,7 +59,11 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+        $en = new GoogleTranslate('en');
+        $name_en = $en->translate($request->name);
+
         $category->name = $request->name;
+        $category->name_en = $name_en ?? null;
         $category->save();
         return redirect()->route('category.index');
     }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->tinyText('name');
+            $table->tinyText('name_en')->nullable();
             $table->boolean('has_child')->default(false);
             $table->foreignIdFor(Category::class)->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

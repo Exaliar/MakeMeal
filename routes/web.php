@@ -20,9 +20,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [CategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/category', [CategoryController::class, 'index'])->middleware('auth')->name('category.index');
 Route::post('/category', [CategoryController::class, 'store'])->middleware('auth')->name('category.store');

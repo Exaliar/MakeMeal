@@ -87,7 +87,7 @@
                                 </div>
                             @endif
                             <span
-                                class="mb-1 inline-block h-10 w-72 rounded-lg border-2 border-blue-500 text-center leading-10 peer-checked/edit:border-none">{{ $category['name'] }}
+                                class="mb-1 inline-block h-10 w-72 cursor-pointer rounded-lg border-2 border-blue-500 text-center leading-10 peer-checked/edit:border-none">{{ $category['name'] }}
                             </span>
 
                             @isset($category['children'])
@@ -182,7 +182,7 @@
                                                 </svg>
                                             </label>
                                             <span
-                                                class="mb-1 ml-5 inline-block h-10 w-[268px] rounded-lg border-2 border-pink-500 text-center leading-10 peer-checked/edit:border-none">{{ $child['name'] }}
+                                                class="mb-1 ml-5 inline-block h-10 w-[268px] cursor-pointer rounded-lg border-2 border-pink-500 text-center leading-10 peer-checked/edit:border-none">{{ $child['name'] }}
                                             </span>
                                             @isset($child['children'])
                                                 <input class="peer/collapse hidden"
@@ -293,7 +293,7 @@
                                                                 </svg>
                                                             </label>
                                                             <span
-                                                                class="mb-1 ml-10 inline-block h-10 w-[248px] rounded-lg border-2 border-green-500 text-center leading-10 peer-checked/edit:border-none">{{ $lastChild['name'] }}
+                                                                class="mb-1 ml-10 inline-block h-10 w-[248px] cursor-pointer rounded-lg border-2 border-green-500 text-center leading-10 peer-checked/edit:border-none">{{ $lastChild['name'] }}
                                                             </span>
                                                         </li>
                                                     @endforeach
@@ -320,7 +320,7 @@
                                                                 d="M11.5,54.9c6.1,4.1,12.7,8.2,18.3,13.1c2.9,2.5,5.5,5.3,7.7,8.5c2.1,3.2,3.3,7,5.6,10.1c3.2,4.3,9,2.9,10.1-2   c7.4-11.4,16.5-24.1,27-32.5c1.9-1.5-0.5-4.4-2.5-3.3c-9.5,5.6-17.5,12.1-24.5,19.9c0.2-7.7,0.5-15.5,0.6-23.2   c0.1-6.9,0.2-13.9,0.3-20.8c0.1-5.7,1.2-11.8,0.5-17.5c-0.7-6.8-12.1-9.9-13.2-1.8c-1.7,12.5,0.3,26.4,0.5,39   c0.1,6.6,0.4,13.2,0.6,19.8c-1.3-1.1-2.6-2.1-3.8-3c-7.6-5.6-15.8-9.4-24.9-11.6C10.5,48.8,8.8,53,11.5,54.9z" />
                                                         </svg>
                                                     </label>
-                                                    <span
+                                                    <div
                                                         class="relative left-10 inline-block h-10 w-[248px] rounded-lg border-2 border-green-500 leading-10">
                                                         <form action="{{ route('category.store') }}" method="POST">
                                                             @csrf
@@ -341,7 +341,7 @@
                                                                 </svg>
                                                             </button>
                                                         </form>
-                                                    </span>
+                                                    </div>
                                                 </div>
                                             @endif
                                         </li>
@@ -360,7 +360,7 @@
                                                 d="M12.6,28.9c10.2,5.4,19.8,12.2,25.3,22.6c2.8,5.3,10.9,0.6,8-4.7C43,41.5,39,36.9,34.5,33   c13.6-1.6,30-1.2,32.3,14.2c1,6.8,1.3,13.8,1.4,20.7c0.1,6-1.2,12.7,2,18c0.9,1.6,3.6,2.3,4.9,0.6c5.2-6.6,3.7-17.6,3.5-25.7   c-0.2-8.1,0.2-18.2-4.3-25.4c-9-14.5-29.5-13.8-45.3-12c7.6-4.1,14.4-9.5,20.9-15.7c1.1-1.1-0.3-3.1-1.7-2.2   c-10.8,6.9-22.3,12.3-34.6,15.7C10.3,22.2,9.4,27.2,12.6,28.9z" />
                                         </svg>
                                     </label>
-                                    <span
+                                    <div
                                         class="relative left-5 inline-block h-10 w-[268px] rounded-lg border-2 border-pink-500 leading-10">
                                         <form action="{{ route('category.store') }}" method="POST">
                                             @csrf
@@ -378,13 +378,13 @@
                                                 </svg>
                                             </button>
                                         </form>
-                                    </span>
+                                    </div>
                                 </div>
                             @endif
                         </li>
                     @endforeach
                     @if (isset($add) && $add)
-                        <span
+                        <div
                             class="relative inline-block h-10 w-72 rounded-lg border-2 border-blue-500 pl-1 leading-10">
                             <form action="{{ route('category.store') }}" method="POST">
                                 @csrf
@@ -400,7 +400,7 @@
                                     </svg>
                                 </button>
                             </form>
-                        </span>
+                        </div>
                     @endif
                 </ul>
             </div>
@@ -410,7 +410,7 @@
         </div>
     </div>
 
-    @push('scripts')
+    {{-- @push('scripts')
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
                 const editCategories = document.querySelectorAll('.edit-category');
@@ -421,5 +421,5 @@
                 });
             });
         </script>
-    @endpush
+    @endpush --}}
 </x-app-layout>
