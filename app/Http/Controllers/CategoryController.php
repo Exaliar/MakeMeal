@@ -59,8 +59,8 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $en = new GoogleTranslate('en');
-        $name_en = $en->translate($request->name);
+        $en = new GoogleTranslate();
+        $name_en = $en->setSource('pl')->setTarget('en')->translate($request->name);
 
         $category->name = $request->name;
         $category->name_en = $name_en ?? null;

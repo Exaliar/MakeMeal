@@ -185,4 +185,7 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+
+    'spoon_api_key' => env('SPOONACULAR_API_KEY'),
+
 ];
