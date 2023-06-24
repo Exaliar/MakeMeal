@@ -3,10 +3,13 @@
         @isset($results)
             @foreach ($results as $result)
                 {{-- {{ dd($result) }} --}}
-                <div
-                    class="m-3 flex w-28 flex-col rounded border-4 border-transparent bg-white shadow-md hover:border-green-400">
+                <input class="hidden" id="ingredient-{{ $result->id }}" name="ingredient-select" type="radio"
+                    value="{{ $result->id }}" wire:click="$emit('ingredientSerch', '{{ $result->id }}')">
+                <label
+                    class="m-2 flex w-20 flex-col rounded border-4 border-transparent bg-white shadow-md hover:border-green-400"
+                    for="ingredient-{{ $result->id }}">
                     <div class="mx-auto flex h-20">
-                        <object class="m-auto max-h-16 bg-contain" type="image/jpg"
+                        <object class="m-auto max-h-16 w-16 bg-contain" type="image/jpg"
                             data="{{ 'https://spoonacular.com/cdn/ingredients_100x100/' . $result->image }}">
                             <svg class="h-16 w-16 fill-black" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -15,11 +18,11 @@
                             </svg>
                         </object>
                     </div>
-                    <div class="w-full p-3">
+                    <div class="w-full p-1">
                         <div class="h-10 overflow-hidden text-ellipsis">
-                            <p class="text-sm first-letter:uppercase">{{ $result->name }}</p>
+                            <p class="text-center text-xs first-letter:uppercase">{{ $result->name }}</p>
                         </div>
-                        <form class="flex flex-col items-center" action="">
+                        {{-- <form class="flex flex-col items-center" action="">
                             <input name="" type="hidden" value="{{ $result->id }}">
                             <div class="mt-1 flex flex-col">
                                 <input class="h-5 w-20 p-1" id="" name="" type="number" value="1"
@@ -35,9 +38,9 @@
                             <button
                                 class="mt-2 rounded border border-green-500 bg-transparent py-1 px-2 font-semibold text-green-700 transition-colors hover:border-transparent hover:bg-green-500 hover:text-white"
                                 type="submit">Zapisz</button>
-                        </form>
+                        </form> --}}
                     </div>
-                </div>
+                </label>
             @endforeach
         </div>
     @endisset

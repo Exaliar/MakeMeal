@@ -9,8 +9,9 @@ use Livewire\Component;
 class SerchIngredients extends Component
 {
     public $results;
-    public $serch;
+    // public $serch;
     public $numOfResults = 100;
+    // public $ingredient;
 
     protected $listeners = ['serch',];
 
@@ -67,4 +68,18 @@ class SerchIngredients extends Component
         // dump(json_encode($test));
         // $this->results = $response->collect()['results'];
     }
+
+    // public function updatingIngredient($id)
+    // {
+    //     $this->ingredient = intval($id);
+    // }
+
+    // function updating() {
+
+    // }
+
+    // public function loadIngredient(int $id)
+    // {
+    //     $this->ingredient = $id;
+    // }
 }

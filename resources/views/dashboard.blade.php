@@ -29,9 +29,10 @@
     </x-slot>
 
     <div class="flex flex-col">
-        <div class="flex">
-            <div class="m-auto">
-                <ul class="mt-5 flex w-72 flex-col overflow-x-hidden">
+        <div class="sticky top-0 flex flex-row bg-white">
+            <input class="peer hidden" id="category-menu" name="" type="checkbox">
+            <div class="ml-2 overflow-hidden pb-2 peer-checked:h-11">
+                <ul class="mt-1 flex w-72 flex-col overflow-x-hidden">
 
                     @foreach ($data as $category)
                         <li class="relative">
@@ -267,13 +268,25 @@
                     @endif
                 </ul>
             </div>
+            <label class="ml-4 mt-2 h-8 w-8 -rotate-90 cursor-pointer transition-all peer-checked:rotate-90"
+                for="category-menu">
+                <svg class="fill-black hover:fill-black/75" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M12.293 7.293a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414-1.414L15.586 12l-3.293-3.293a1 1 0 0 1 0-1.414Z" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M6.293 7.293a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414-1.414L9.586 12 6.293 8.707a1 1 0 0 1 0-1.414Z" />
+                </svg>
+            </label>
         </div>
-        <div class="flex">
+        <div class="flex h-80 overflow-scroll">
             <div class="m-auto w-10/12">
 
                 <livewire:category.serch-ingredients />
 
             </div>
         </div>
+
     </div>
+    <livewire:category.form-ingredients />
 </x-app-layout>
