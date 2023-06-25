@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('category_a_p_i_s', function (Blueprint $table) {
             $table->id();
-            $table->tinyText('serch')->unique();
+            $table->char('serch', 100)->unique();
             $table->text('json_response_api');
             $table->timestamps();
         });

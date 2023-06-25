@@ -41,10 +41,11 @@ class FormIngredients extends Component
                 $ingredientAPI->serch = $ingredient;
                 $ingredientAPI->json_response_api = $ingredientResponseAPI;
                 $ingredientAPI->save();
-                $this->ingredient = json_decode($ingredientResponseAPI);
+                $this->ingredient = json_decode($ingredientResponseAPI, true);
+                // dd($this->ingredient);
             }
         } else {
-            $this->ingredient = json_decode($ingredientInDatabase[0]->json_response_api);
+            $this->ingredient = json_decode($ingredientInDatabase[0]->json_response_api, true);
         }
         // $this->ingredient = intval($ingredient);
 
@@ -61,10 +62,10 @@ class FormIngredients extends Component
             'Content-Type' => 'application/json',
             'x-api-key' => config('app.spoon_api_key'),
         ])->get($url, [
-            'unit' => 'grams'
+            // 'unit' => 'grams'
         ]);
 
-        dd($response);
+        // dd(json_decode($response->body()));
 
         if ($response->failed()) {
             $this->addError('ingredient', 'API response was failed!!');
@@ -74,7 +75,8 @@ class FormIngredients extends Component
         if ($response->successful()) {
             // dd($response);
             $data = $response->json();
-            dd($data);
+            // return json_encode($response->body());
+            // dd($data);
             return json_encode($data);
         }
     }

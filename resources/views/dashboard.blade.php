@@ -29,8 +29,8 @@
     </x-slot>
 
     <div class="flex flex-col">
-        <div class="sticky top-0 flex flex-row bg-white">
-            <input class="peer hidden" id="category-menu" name="" type="checkbox">
+        <div class="sticky top-0 mx-auto flex flex-row">
+            <input class="peer hidden" id="category-menu" name="" type="checkbox" checked>
             <div class="ml-2 overflow-hidden pb-2 peer-checked:h-11">
                 <ul class="mt-1 flex w-72 flex-col overflow-x-hidden">
 
