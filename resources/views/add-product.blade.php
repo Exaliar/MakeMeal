@@ -5,7 +5,7 @@
         </h2>
     </x-slot> --}}
 
-    <x-slot name="controllButtons">
+    {{-- <x-slot name="controllButtons">
         @isset($edit)
             <a class="rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
                 href="{{ route('edit-category') }}">
@@ -26,7 +26,7 @@
                 @endif
             </a>
         @endisset
-    </x-slot>
+    </x-slot> --}}
 
     <div class="flex flex-col">
         <div class="sticky top-0 mx-auto flex flex-row">
@@ -279,7 +279,7 @@
                 </svg>
             </label>
         </div>
-        <div class="flex h-80 overflow-scroll">
+        <div class="flex h-80 overflow-y-scroll">
             <div class="m-auto w-10/12">
 
                 <livewire:category.serch-ingredients />

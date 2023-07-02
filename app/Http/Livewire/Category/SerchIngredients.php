@@ -53,8 +53,16 @@ class SerchIngredients extends Component
             'number' => $this->numOfResults,
         ]);
 
+        //MUST WHRITE LOGIC TO RESPONSE STATUS CODE!!!!
         if ($response->failed()) {
-            $this->results = 'Something went wrong!!';
+            $message = match ($response->status()) {
+                '400' => 'API response was failed!!',
+                '401' => 'API unauthorized!!',
+                '429' => 'API to many request!!',
+                '500' => 'API server not respond!!',
+                default => 'API unknow error!!'
+            };
+            $this->addError('ingredient', $message);
             return false;
         }
 

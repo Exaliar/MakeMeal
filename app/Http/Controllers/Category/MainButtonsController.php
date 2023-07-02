@@ -8,27 +8,25 @@ use App\Traits\MainDashboard\EditCategory;
 
 class MainButtonsController extends Controller
 {
-    use EditCategory, AddCategory;
-
     /**
      * Handle the incoming request.
      */
     public function editCategory()
     {
-        if ($this->canEditCategory()) {
-            $this->unsetEditableCategory();
+        if (session()->has('editCategory')) {
+            session()->forget('editCategory');
         } else {
-            $this->makeEditableCategory();
+            session()->put('editCategory', true);
         }
         return redirect()->route('category.index');
     }
 
     public function addCategory()
     {
-        if ($this->canAddCategory()) {
-            $this->unsetAddCategory();
+        if (session()->has('addCategory')) {
+            session()->forget('addCategory');
         } else {
-            $this->makeAddCategory();
+            session()->put('addCategory', true);
         }
         return redirect()->route('category.index');
     }

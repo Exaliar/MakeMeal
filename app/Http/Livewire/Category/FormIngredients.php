@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Category;
 
-use App\Models\IgredientAPI;
+use App\Models\IngredientAPI;
+use App\Models\UserIngredient;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -10,14 +12,19 @@ class FormIngredients extends Component
 {
 
     public $ingredient;
+    public $weight;
+    public $unit;
 
-    protected $listeners = [
-        'ingredientSerch'
+    protected $rules = [
+        // 'ingredient_a_p_i_id' => ['required', 'exists:App\IngredientAPI,serch'],
+        'weight' => ['required', 'numeric', 'min:0'],
+        'unit' => ['required', 'string', 'max:20'],
     ];
 
-    // protected $rules = [
-    //     'ingredient' => ['numeric'], //"/^\\d+$/"
-    // ];
+    protected $listeners = [
+        'ingredientSerch',
+        'saveIngredient'
+    ];
 
     public function render()
     {
@@ -31,13 +38,13 @@ class FormIngredients extends Component
             $this->addError('ingredient', 'The type field is invalid.');
         }
 
-        $ingredientInDatabase = IgredientAPI::where('serch', $ingredient)->get();
+        $ingredientInDatabase = IngredientAPI::where('serch', $ingredient)->get();
 
         if ($ingredientInDatabase->isEmpty()) {
             $ingredientResponseAPI = $this->findIngredient($ingredient);
             // dd($ingredientResponseAPI);
             if ($ingredientResponseAPI) {
-                $ingredientAPI = new IgredientAPI;
+                $ingredientAPI = new IngredientAPI;
                 $ingredientAPI->serch = $ingredient;
                 $ingredientAPI->json_response_api = $ingredientResponseAPI;
                 $ingredientAPI->save();
@@ -45,7 +52,17 @@ class FormIngredients extends Component
                 // dd($this->ingredient);
             }
         } else {
-            $this->ingredient = json_decode($ingredientInDatabase[0]->json_response_api, true);
+            // dd($ingredientInDatabase[0]->json_response_api);
+            $this->ingredient = $ingredientInDatabase[0]->json_response_api;
+            $userIngredient = UserIngredient::where('user_id', Auth::user()->id)->where('ingredient_a_p_i_id',  $this->ingredient['id'])->get();
+            if (!$userIngredient->isEmpty()) {
+                $this->weight = $userIngredient[0]->weight;
+                $this->unit = $userIngredient[0]->unit;
+            } else {
+                $this->weight = 0;
+                $this->unit = null;
+            }
+            // dd(!$userIngredient->isEmpty());
         }
         // $this->ingredient = intval($ingredient);
 
@@ -68,7 +85,14 @@ class FormIngredients extends Component
         // dd(json_decode($response->body()));
 
         if ($response->failed()) {
-            $this->addError('ingredient', 'API response was failed!!');
+            $message = match ($response->status()) {
+                '400' => 'API response was failed!!',
+                '401' => 'API unauthorized!!',
+                '429' => 'API to many request!!',
+                '500' => 'API server not respond!!',
+                default => 'API unknow error!!'
+            };
+            $this->addError('ingredient', $message);
             return false;
         }
 
@@ -78,6 +102,27 @@ class FormIngredients extends Component
             // return json_encode($response->body());
             // dd($data);
             return json_encode($data);
+        }
+    }
+
+    public function saveIngredient()
+    {
+
+        $this->validate();
+
+        $userIngredient = UserIngredient::where('user_id', Auth::user()->id)->where('ingredient_a_p_i_id',  $this->ingredient['id'])->get();
+
+        if ($userIngredient->isEmpty()) {
+            $userIngredient = new UserIngredient();
+            $userIngredient->user_id = Auth::user()->id;
+            $userIngredient->ingredient_a_p_i_id = $this->ingredient['id'];
+            $userIngredient->weight = $this->weight;
+            $userIngredient->unit = $this->unit;
+            $userIngredient->save();
+        } else {
+            $userIngredient[0]->weight = $this->weight;
+            $userIngredient[0]->unit = $this->unit;
+            $userIngredient[0]->save();
         }
     }
 }

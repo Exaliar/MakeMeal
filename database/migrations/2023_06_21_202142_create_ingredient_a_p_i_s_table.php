@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('igredient_a_p_i_s', function (Blueprint $table) {
+        Schema::create('ingredient_a_p_i_s', function (Blueprint $table) {
             $table->id();
             $table->char('serch', 100)->unique();
             $table->text('json_response_api');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('igredient_a_p_i_s');
+        Schema::dropIfExists('ingredient_a_p_i_s');
     }
 };

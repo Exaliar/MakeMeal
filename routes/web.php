@@ -3,6 +3,7 @@
 use App\Http\Controllers\Category\MainButtonsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserIngredientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,18 +19,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->middleware('guest');
 
-Route::get('/dashboard', [CategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', [CategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/category', [CategoryController::class, 'index'])->middleware('auth')->name('category.index');
-Route::post('/category', [CategoryController::class, 'store'])->middleware('auth')->name('category.store');
-Route::patch('/category/{category}', [CategoryController::class, 'update'])->middleware('auth')->name('category.update');
-Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->middleware('auth')->name('category.destroy');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/add-products', [CategoryController::class, 'index'])->name('category.index');
+    Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
+    Route::patch('/category/{category}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+
     Route::get('/set-edit-category', [MainButtonsController::class, 'editCategory'])->name('edit-category');
     Route::get('/set-add-category', [MainButtonsController::class, 'addCategory'])->name('add-category');
+
+    Route::get('/ingredients', UserIngredientController::class)->name('ingredient.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

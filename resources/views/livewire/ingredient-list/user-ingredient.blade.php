@@ -1,18 +1,5 @@
 <div>
-    @if ($ingredient === null)
-        <div class="border-t border-b border-blue-500 bg-blue-100 px-4 py-3 text-blue-700" role="alert">
-            <p class="font-bold">Informational message</p>
-            <p class="text-sm">Please select ingredient above to process...</p>
-        </div>
-    @endif
-    @error('ingredient')
-        <div class="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700" role="alert">
-            <strong class="font-bold">Holy smokes!</strong>
-            <span class="block sm:inline">{{ $message }}</span>
-        </div>
-    @enderror
-    @isset($ingredient)
-        {{-- {{ dd($ingredient) }} --}}
+    @foreach ($ingredients as $ingredient)
         <form class="mx-auto mt-5 flex w-full max-w-lg flex-col rounded-lg border bg-white p-3"
             wire:submit.prevent="saveIngredient">
             {{-- @csrf --}}
@@ -55,10 +42,10 @@
                             <span class="error">{{ $message }}</span>
                         @enderror
                         {{-- <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
-                        </div> --}}
+            <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+            </svg>
+        </div> --}}
                     </div>
                 </div>
             </div>
@@ -66,5 +53,5 @@
                 class="mx-3 mt-5 max-w-lg rounded border border-green-500 bg-transparent py-2 font-semibold text-green-700 hover:border-transparent hover:bg-green-500 hover:text-white"
                 type="submit">Zapisz</button>
         </form>
-    @endisset
+    @endforeach
 </div>
