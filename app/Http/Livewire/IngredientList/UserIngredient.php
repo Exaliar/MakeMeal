@@ -8,11 +8,16 @@ use Livewire\Component;
 
 class UserIngredient extends Component
 {
-    public $ingredients;
+    public $ingredientsDatabase;
+
+    public function mount()
+    {
+        session(['ingredientList' => []]);
+    }
 
     public function render()
     {
-        $this->ingredients = ModelsUserIngredient::with('ingredientAPI')->where('user_id', Auth::id())->get();
+        $this->ingredientsDatabase = ModelsUserIngredient::with('ingredientAPI')->where('user_id', Auth::id())->get();
         // dd($userIngredient->isEmpty());
         // dd($ingredients[0]->ingredientAPI->json_response_api);
         return view('livewire.ingredient-list.user-ingredient');
