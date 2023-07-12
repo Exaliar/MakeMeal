@@ -14,7 +14,7 @@
         </div>
     @enderror
 
-    <div class="grid gap-5 px-5 py-5 sm:grid-cols-2">
+    <div class="columns-1 gap-5 space-y-5 px-5 lg:columns-2 xl:columns-3 2xl:columns-4">
         @if (filled($recipes))
             @foreach ($recipes as $recipe)
                 <livewire:recipe-list.card-recipe :recipe="$recipe" />
