@@ -46,6 +46,7 @@ class SerchRecipe extends Component
             'ingredients' => $nameIngredients,
             'number' => $this->numOfResults,
             'limitLicense' => true,
+            'ranking' => 1,
             'ignorePantry' => false,
         ]);
 
