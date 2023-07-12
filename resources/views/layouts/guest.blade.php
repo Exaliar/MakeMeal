@@ -20,7 +20,7 @@
     <div class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 dark:bg-gray-900">
         <div>
             <a href="/">
-                <x-application-logo class="h-20 w-20 fill-current text-gray-500" />
+                <img class="h-60 rounded-lg" src="{{ asset('storage/logo/logo_576_x_384.jpg') }}" alt="logo">
             </a>
         </div>
 
