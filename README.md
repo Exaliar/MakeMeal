@@ -1,6 +1,8 @@
 # Food management at home.
 
 An application related to the use of products that we have at home to prepare ready meals, or to check what else we need.
+<br />
+Live Demo here: [website]
 
 ## Environment
 
@@ -35,3 +37,5 @@ To deploy this project run
   npm run dev
   php artisan serve
 ```
+
+[website]: http://exaliar.webd.pro/make-meal
