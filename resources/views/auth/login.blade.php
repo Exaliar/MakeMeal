@@ -46,7 +46,7 @@
     </div>
 
     <div class="mt-3 border-l-4 border-green-500 bg-green-100 p-4 text-green-700" role="alert">
-        <p class="font-bold">Test log in access!</p>
+        <p class="font-bold">Test login access!</p>
         <p>Email: <code class="font-extrabold">test@example.com</code></p>
         <p>Password: <code class="font-extrabold">password</code></p>
     </div>
