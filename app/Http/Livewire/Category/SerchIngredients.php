@@ -9,9 +9,7 @@ use Livewire\Component;
 class SerchIngredients extends Component
 {
     public $results;
-    // public $serch;
     public $numOfResults = 100;
-    // public $ingredient;
 
     protected $listeners = ['serch',];
 
@@ -20,15 +18,9 @@ class SerchIngredients extends Component
         return view('livewire.category.serch-ingredients');
     }
 
-    public function mount()
-    {
-        // $this->message = 'test2';
-    }
-
     public function serch(string $name_en)
     {
         $serchAPI = CategoryAPI::where('serch', $name_en)->get();
-        // dd($serchAPI);
         if ($serchAPI->isEmpty()) {
             $response = $this->findIngrediants($name_en);
             if ($response) {
@@ -39,7 +31,6 @@ class SerchIngredients extends Component
                 $this->results = json_decode($response);
             }
         } else {
-            // dd($serchAPI[0]->json_response_api);
             $this->results = json_decode($serchAPI[0]->json_response_api);
         }
     }
@@ -53,7 +44,6 @@ class SerchIngredients extends Component
             'number' => $this->numOfResults,
         ]);
 
-        //MUST WHRITE LOGIC TO RESPONSE STATUS CODE!!!!
         if ($response->failed()) {
             $message = match ($response->status()) {
                 '400' => 'API response was failed!!',
@@ -70,24 +60,5 @@ class SerchIngredients extends Component
             $test = $response->json('results');
             return json_encode($test);
         }
-        // return $dataAPI;
-        // $results = $response->json('results');
-        // return
-        // dump(json_encode($test));
-        // $this->results = $response->collect()['results'];
     }
-
-    // public function updatingIngredient($id)
-    // {
-    //     $this->ingredient = intval($id);
-    // }
-
-    // function updating() {
-
-    // }
-
-    // public function loadIngredient(int $id)
-    // {
-    //     $this->ingredient = $id;
-    // }
 }

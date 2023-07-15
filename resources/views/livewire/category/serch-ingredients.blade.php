@@ -8,7 +8,6 @@
     <div class="flex w-full flex-wrap">
         @isset($results)
             @foreach ($results as $result)
-                {{-- {{ dd($result) }} --}}
                 <input class="hidden" id="ingredient-{{ $result->id }}" name="ingredient-select" type="radio"
                     value="{{ $result->id }}" wire:click="$emit('ingredientSerch', '{{ $result->id }}')">
                 <label
@@ -28,23 +27,6 @@
                         <div class="h-10 overflow-hidden text-ellipsis">
                             <p class="text-center text-xs first-letter:uppercase">{{ $result->name }}</p>
                         </div>
-                        {{-- <form class="flex flex-col items-center" action="">
-                            <input name="" type="hidden" value="{{ $result->id }}">
-                            <div class="mt-1 flex flex-col">
-                                <input class="h-5 w-20 p-1" id="" name="" type="number" value="1"
-                                    min="0">
-                                <select
-                                    class="h-5 w-20 py-0 pl-1 pr-1 text-sm text-gray-600 hover:border-gray-400 focus:outline-none"
-                                    name="">
-                                    <option value="l" selected>l.</option>
-                                    <option value="szt">szt.</option>
-                                    <option value="kg">kg.</option>
-                                </select>
-                            </div>
-                            <button
-                                class="mt-2 rounded border border-green-500 bg-transparent py-1 px-2 font-semibold text-green-700 transition-colors hover:border-transparent hover:bg-green-500 hover:text-white"
-                                type="submit">Zapisz</button>
-                        </form> --}}
                     </div>
                 </label>
             @endforeach

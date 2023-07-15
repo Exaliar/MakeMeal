@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
-use App\Traits\MainDashboard\AddCategory;
-use App\Traits\MainDashboard\EditCategory;
 
 class MainButtonsController extends Controller
 {

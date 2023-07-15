@@ -18,8 +18,6 @@ class UserIngredient extends Component
     public function render()
     {
         $this->ingredientsDatabase = ModelsUserIngredient::with('ingredientAPI')->where('user_id', Auth::id())->get();
-        // dd($userIngredient->isEmpty());
-        // dd($ingredients[0]->ingredientAPI->json_response_api);
         return view('livewire.ingredient-list.user-ingredient');
     }
 }

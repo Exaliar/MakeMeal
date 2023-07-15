@@ -5,8 +5,6 @@ namespace App\Http\Livewire\RecipeList;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
-use function PHPUnit\Framework\isEmpty;
-
 class SerchRecipe extends Component
 {
 
@@ -38,7 +36,6 @@ class SerchRecipe extends Component
     {
 
         $nameIngredients = implode(",", session('ingredientList'));
-        // dd($nameIngredients);
 
         $response = Http::withHeaders([
             'x-api-key' => config('app.spoon_api_key'),
@@ -50,7 +47,6 @@ class SerchRecipe extends Component
             'ignorePantry' => false,
         ]);
 
-        //MUST WHRITE LOGIC TO RESPONSE STATUS CODE!!!!
         if ($response->failed()) {
             $message = match ($response->status()) {
                 '400' => 'API response was failed!!',
@@ -64,9 +60,7 @@ class SerchRecipe extends Component
         }
 
         if ($response->successful()) {
-            // dd($response->json());
             return $response->json();
-            // return json_encode($test);
         }
     }
 }

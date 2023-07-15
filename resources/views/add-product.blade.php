@@ -1,39 +1,9 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
-
-    {{-- <x-slot name="controllButtons">
-        @isset($edit)
-            <a class="rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
-                href="{{ route('edit-category') }}">
-                @if ($edit)
-                    Save Category
-                @else
-                    Edit Category
-                @endif
-            </a>
-        @endisset
-        @isset($add)
-            <a class="rounded border border-blue-500 bg-transparent py-2 px-4 font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
-                href="{{ route('add-category') }}">
-                @if ($add)
-                    Hide Add Category
-                @else
-                    Show Add Category
-                @endif
-            </a>
-        @endisset
-    </x-slot> --}}
-
     <div class="flex flex-col">
-        <div class="sticky top-0 mx-auto flex flex-row">
+        <div class="mx-auto flex flex-row">
             <input class="peer hidden" id="category-menu" name="" type="checkbox" checked>
             <div class="ml-2 overflow-hidden pb-2 peer-checked:h-11">
                 <ul class="mt-1 flex w-72 flex-col overflow-x-hidden">
-
                     @foreach ($data as $category)
                         <li class="relative">
                             @if (isset($edit) && $edit)
@@ -49,10 +19,8 @@
                                         </path>
                                     </svg>
                                 </label>
-
                                 <div
                                     class="absolute top-0 -left-80 h-8 w-[248px] rounded-lg bg-gray-100 transition-all peer-checked/edit:left-0">
-
                                     <form action="{{ route('category.update', $category['id']) }}" method="POST">
                                         @csrf
                                         @method('PATCH')
@@ -69,7 +37,6 @@
                                             </svg>
                                         </button>
                                     </form>
-
                                     <form action="{{ route('category.destroy', $category['id']) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -84,12 +51,9 @@
                                             </svg>
                                         </button>
                                     </form>
-
                                 </div>
                             @endif
-
                             <livewire:category.button-trigger-category :category="$category" />
-
                             @isset($category['children'])
                                 <input class="peer/collapse hidden"
                                     id="{{ $category['name'] . $category['id'] . 'collapse' }}" type="checkbox">
@@ -129,10 +93,8 @@
                                                         </path>
                                                     </svg>
                                                 </label>
-
                                                 <div
                                                     class="absolute top-0 -left-80 h-10 w-[248px] rounded-lg bg-gray-100 transition-all peer-checked/edit:left-0">
-
                                                     <form action="{{ route('category.update', $child['id']) }}"
                                                         method="POST">
                                                         @csrf
@@ -152,7 +114,6 @@
                                                             </svg>
                                                         </button>
                                                     </form>
-
                                                     <form action="{{ route('category.destroy', $child['id']) }}"
                                                         method="POST">
                                                         @csrf
@@ -178,12 +139,9 @@
                                                     <title>right</title>
                                                     <path class="st0"
                                                         d="M12.6,28.9c10.2,5.4,19.8,12.2,25.3,22.6c2.8,5.3,10.9,0.6,8-4.7C43,41.5,39,36.9,34.5,33   c13.6-1.6,30-1.2,32.3,14.2c1,6.8,1.3,13.8,1.4,20.7c0.1,6-1.2,12.7,2,18c0.9,1.6,3.6,2.3,4.9,0.6c5.2-6.6,3.7-17.6,3.5-25.7   c-0.2-8.1,0.2-18.2-4.3-25.4c-9-14.5-29.5-13.8-45.3-12c7.6-4.1,14.4-9.5,20.9-15.7c1.1-1.1-0.3-3.1-1.7-2.2   c-10.8,6.9-22.3,12.3-34.6,15.7C10.3,22.2,9.4,27.2,12.6,28.9z" />
-
                                                 </svg>
                                             </label>
-
                                             <livewire:category.button-trigger-child :child="$child" />
-
                                             @isset($child['children'])
                                                 <input class="peer/collapse hidden"
                                                     id="{{ $child['name'] . $child['id'] . 'collapse' }}" type="checkbox">
@@ -210,10 +168,8 @@
                                                 <ul class="flex flex-col peer-checked/collapse:hidden">
                                                     @foreach ($child['children'] as $lastChild)
                                                         <li class="relative">
-
                                                             <x-category.edit :category="$lastChild" :$edit />
                                                             <livewire:category.button-trigger-last-child :lastChild="$lastChild" />
-
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -281,12 +237,9 @@
         </div>
         <div class="flex h-80 overflow-y-scroll">
             <div class="m-auto w-10/12">
-
                 <livewire:category.serch-ingredients />
-
             </div>
         </div>
-
     </div>
     <livewire:category.form-ingredients />
 </x-app-layout>

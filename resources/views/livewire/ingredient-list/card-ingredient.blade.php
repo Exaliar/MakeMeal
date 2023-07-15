@@ -1,7 +1,5 @@
 <div>
     <section class="relative flex w-36 flex-col rounded-lg border bg-white">
-        {{-- {{ dd($ingredient) }} --}}
-        {{-- @csrf --}}
         <input class="peer hidden" id="{{ 'ingredientsSelected' . $ingredient->id }}" type="checkbox" value=""
             wire:model="ingredientsSelected">
         <div class="rounded-lg border-4 border-transparent pb-10 peer-checked:border-green-500">
@@ -49,12 +47,6 @@
                         @error('unit')
                             <span class="error">{{ $message }}</span>
                         @enderror
-                        {{-- <div
-                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
-                    </div> --}}
                     </div>
                 </div>
                 <button
@@ -66,5 +58,4 @@
             class="absolute left-5 right-5 bottom-1 mx-auto my-2 rounded border border-green-500 bg-transparent px-2 py-1 text-center text-xs font-semibold text-green-700 transition-all hover:border-transparent hover:bg-green-500 hover:text-white peer-checked:border-transparent peer-checked:bg-green-500 peer-checked:text-white peer-checked:hover:border-green-500 peer-checked:hover:bg-white peer-checked:hover:text-green-500"
             for="{{ 'ingredientsSelected' . $ingredient->id }}">Użyj</label>
     </section>
-    {{-- {{ var_export(session('ingredientList')) }} --}}
 </div>

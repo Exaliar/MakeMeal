@@ -19,17 +19,11 @@ class CategoryController extends Controller
         $edit = session()->has('editCategory');
         $add = session()->has('addCategory');
 
-        // $en = new GoogleTranslate('pl');
-        // $test = $en->getResponse('Vegetable oil (enough to cover chicken), about 1 quart');
-        // dd($test);
-        // dd($data);
-
         return view('/add-product', compact(['data', 'edit', 'add']));
     }
 
     public function store(StoreCategoryRequest $request)
     {
-        // $validate = $request->validated();
         $category = new Category();
         $en = new GoogleTranslate('en');
         $name_en = $en->translate($request->name);

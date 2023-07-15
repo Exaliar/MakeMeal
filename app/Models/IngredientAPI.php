@@ -16,8 +16,6 @@ class IngredientAPI extends Model
         'json_response_api',
     ];
 
-    // protected $primaryKey = 'serch';
-
     public function userIngredient()
     {
         return $this->hasMany(UserIngredient::class);

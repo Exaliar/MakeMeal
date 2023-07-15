@@ -16,7 +16,6 @@ class CardIngredient extends Component
 
     public function mount(ModelsUserIngredient $ingredient)
     {
-        // dd($ingredient->ingredientAPI->json_response_api['name']);
         $this->unit = $ingredient->unit;
         $this->weight = intval($ingredient->weight);
         $this->ingredient = $ingredient;
@@ -46,6 +45,5 @@ class CardIngredient extends Component
         $ingredient->weight = $this->weight;
         $ingredient->unit = $this->unit;
         $ingredient->save();
-        // dd($ingredient);
     }
 }

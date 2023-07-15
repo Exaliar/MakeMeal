@@ -16,7 +16,6 @@ class FormIngredients extends Component
     public $unit;
 
     protected $rules = [
-        // 'ingredient_a_p_i_id' => ['required', 'exists:App\IngredientAPI,serch'],
         'weight' => ['required', 'numeric', 'min:0'],
         'unit' => ['required', 'string', 'max:20'],
     ];
@@ -42,17 +41,14 @@ class FormIngredients extends Component
 
         if ($ingredientInDatabase->isEmpty()) {
             $ingredientResponseAPI = $this->findIngredient($ingredient);
-            // dd($ingredientResponseAPI);
             if ($ingredientResponseAPI) {
                 $ingredientAPI = new IngredientAPI;
                 $ingredientAPI->serch = $ingredient;
                 $ingredientAPI->json_response_api = $ingredientResponseAPI;
                 $ingredientAPI->save();
                 $this->ingredient = json_decode($ingredientResponseAPI, true);
-                // dd($this->ingredient);
             }
         } else {
-            // dd($ingredientInDatabase[0]->json_response_api);
             $this->ingredient = $ingredientInDatabase[0]->json_response_api;
             $userIngredient = UserIngredient::where('user_id', Auth::user()->id)->where('ingredient_a_p_i_id',  $this->ingredient['id'])->get();
             if (!$userIngredient->isEmpty()) {
@@ -62,13 +58,7 @@ class FormIngredients extends Component
                 $this->weight = 0;
                 $this->unit = null;
             }
-            // dd(!$userIngredient->isEmpty());
         }
-        // $this->ingredient = intval($ingredient);
-
-        // dd($this->findIngredient($this->ingredient));
-        // $this->validate();
-
     }
 
     private function findIngredient(int $idIngredient): bool|string
@@ -78,11 +68,7 @@ class FormIngredients extends Component
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'x-api-key' => config('app.spoon_api_key'),
-        ])->get($url, [
-            // 'unit' => 'grams'
-        ]);
-
-        // dd(json_decode($response->body()));
+        ])->get($url);
 
         if ($response->failed()) {
             $message = match ($response->status()) {
@@ -97,10 +83,7 @@ class FormIngredients extends Component
         }
 
         if ($response->successful()) {
-            // dd($response);
             $data = $response->json();
-            // return json_encode($response->body());
-            // dd($data);
             return json_encode($data);
         }
     }
